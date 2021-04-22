@@ -14,18 +14,19 @@ function sendDataForRegistration() {
         password: signUpPassword.value,
     };
     var json = JSON.stringify(data);
-    alert(json);
     var xhr = new XMLHttpRequest();
     xhr.open('POST', 'http://localhost:8080/registration');
-    xhr.responseType = 'text';
+    xhr.setRequestHeader("Content-Type", "application/json")
+    xhr.send(json)
     xhr.onreadystatechange = () => {
         if (xhr.status === 200) {
-
-        } else if (xhr.status === 401) {
+            signUpLogin.value = '';
+            signUpPassword.value = '';
+            document.getElementById('sign_in').click()
+        } else if (xhr.status === 400) {
 
         }
     }
-    xhr.send(json);
 
 }
 

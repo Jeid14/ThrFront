@@ -6,7 +6,7 @@ const pages = [{
     template: './login/index.html',
     filename: 'index.html',
     chunks: ['main']
-},
+}
     // {
     //     template: './chat/chat.html',
     //     filename: 'chat.html',
