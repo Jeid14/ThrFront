@@ -1,12 +1,15 @@
 import './style.css'
 
-var signEmail = document.getElementById('signin-email');
+var loginBtn = document.getElementById('loginBtn');
+var signLogin = document.getElementById('signin-login');
+var signPass = document.getElementById('signin-password');
+
 var signUpBtn = document.getElementById('signUpBtn');
-var errPass = document.getElementById('errPass');
 var signUpLogin = document.getElementById('signup-username');
 var signUpPassword = document.getElementById('signup-password');
 
-signUpBtn.addEventListener('click', sendDataForRegistration);
+signUpBtn.addEventListener('click', isValidRegistration);
+loginBtn.addEventListener('click', isValidLogin);
 
 function sendDataForRegistration() {
     var data = {
@@ -27,7 +30,40 @@ function sendDataForRegistration() {
 
         }
     }
+}
 
+function isValidRegistration() {
+    if (isLoginValidRegistration() && isPassValidRegistration()) {
+        console.log(isLoginValid() + " && " + isPassValid())
+        sendDataForRegistration()
+    } else {
+        document.getElementById('inactive').click()
+    }
+}
+
+function isPassValidRegistration() {
+    return signUpLogin.validity.valid;
+}
+
+function isLoginValidRegistration() {
+    return signUpPassword.validity.valid;
+}
+
+function isValidLogin() {
+    if (isLoginValid() && isPassValid()) {
+        console.log(isLoginValid() + " && " + isPassValid())
+        // sendDataForRegistration()
+    } else {
+        document.getElementById('inactiveLogin').click()
+    }
+}
+
+function isPassValid() {
+    return signLogin.validity.valid;
+}
+
+function isLoginValid() {
+    return signPass.validity.valid;
 }
 
 jQuery(document).ready(function ($) {

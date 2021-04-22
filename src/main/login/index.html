@@ -1,107 +1,103 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 </head>
 <body>
 <nav class="main-nav">
-  <ul>
-    <li><a class="signin" href="#0">Sign in</a></li>
-    <li><a class="signup" href="#0">Sign up</a></li>
-  </ul>
+    <ul>
+        <li><a class="signin" href="#0">Sign in</a></li>
+        <li><a class="signup" href="#0">Sign up</a></li>
+    </ul>
 </nav>
 
 <div class="user-modal">
-  <div class="user-modal-container">
-    <ul class="switcher">
-      <li><a href="#0" id="sign_in">Sign in</a></li>
-      <li><a href="#0">New account</a></li>
-    </ul>
+    <div class="user-modal-container">
+        <ul class="switcher">
+            <li><a href="#0" id="sign_in">Sign in</a></li>
+            <li><a href="#0">New account</a></li>
+        </ul>
 
-    <div id="login">
-      <form class="form">
-        <p class="fieldset">
-          <label class="image-replace email" for="signin-email">E-mail</label>
-          <input class="full-width has-padding has-border" id="signin-email" type="text" placeholder="Login">
-          <span class="error-message">An account with this email address does not exist!</span>
-        </p>
+        <div id="login">
+            <form class="form">
+                <p class="fieldset">
+                    <label class="image-replace email" for="signin-login">E-mail</label>
+                    <input class="full-width has-padding has-border" id="signin-login" type="text"
+                           placeholder="Login..."
+                           pattern="^[a-zA-Z](.[a-zA-Z0-9_-]*)$" minlength="3" maxlength="15" required>
+                    <span class="error-message">An account with this email address does not exist!</span>
+                </p>
 
-        <p class="fieldset">
-          <label class="image-replace password" for="signin-password">Password</label>
-          <input class="full-width has-padding has-border" id="signin-password" type="password"  placeholder="Password" >
-          <a href="#0" class="hide-password">Show</a>
-          <span class="error-message" id = "errPass">Wrong password! Try again.</span>
-        </p>
+                <p class="fieldset">
+                    <label class="image-replace password" for="signin-password">Password</label>
+                    <input class="full-width has-padding has-border" id="signin-password" type="password"
+                           placeholder="Password..." minlength="6" maxlength="15" pattern="[0-9a-zA-Z]{6,}"
+                           required>
+                    <a href="#0" class="hide-password">Show</a>
+                    <span class="error-message" id="errPass">Wrong password! Try again.</span>
+                </p>
 
-<!--        <p class="fieldset">-->
-<!--          <input type="checkbox" id="remember-me" checked>-->
-<!--          <label for="remember-me">Remember me</label>-->
-<!--        </p>-->
+                <p class="fieldset">
+                    <input id="inactiveLogin" type="submit" style="display: none">
+                    <input class="full-width has-padding" type="submit" value="Login" id="loginBtn">
+                </p>
+            </form>
 
-        <p class="fieldset">
-          <input class="full-width" type="submit" value="Login" id="loginBtn">
-        </p>
-      </form>
+            <p class="form-bottom-message"><a href="#0">Forgot your password?</a></p>
+        </div>
 
-      <p class="form-bottom-message"><a href="#0">Forgot your password?</a></p>
-      <!-- <a href="#0" class="close-form">Close</a> -->
+        <div id="signup">
+            <form class="form">
+                <p class="fieldset">
+                    <label class="image-replace username" for="signup-username">Username</label>
+                    <input class="full-width has-padding has-border" id="signup-username" type="text"
+                           placeholder="Username..." pattern="^[a-zA-Z](.[a-zA-Z0-9_-]*)$" required maxlength="15"
+                           minlength="3"
+                           title="Letters and numbers only, 3 to 15 characters.">
+                    <span class="error-message">Your username can only contain numeric and alphabetic symbols!</span>
+                </p>
+
+                <p class="fieldset">
+                    <label class="image-replace password" for="signup-password">Password</label>
+                    <input class="full-width has-padding has-border" id="signup-password" type="password"
+                           placeholder="Password..." minlength="6" maxlength="15" pattern="[0-9a-zA-Z]{6,}"
+                           title="Letters and numbers only, 6 to 15 characters."
+                           required>
+                    <a class="hide-password">Show</a>
+                    <span class="error-message">Your password has to be at least 6 characters long!</span>
+                </p>
+
+                <p class="fieldset">
+                    <input id="inactive" type="submit" style="display: none">
+                    <input class="full-width has-padding" type="submit" value="Create account" id="signUpBtn">
+                </p>
+            </form>
+
+            <!-- <a href="#0" class="cd-close-form">Close</a> -->
+        </div>
+
+        <div id="reset-password">
+            <p class="form-message">Lost your password? Please enter your email address.</br> You will receive a link to
+                create a new password.</p>
+
+            <form class="form">
+                <p class="fieldset">
+                    <label class="image-replace email" for="reset-email">E-mail</label>
+                    <input class="full-width has-padding has-border" id="reset-email" type="email" placeholder="E-mail">
+                    <span class="error-message">An account with this email does not exist!</span>
+                </p>
+
+                <p class="fieldset">
+                    <input class="full-width has-padding" type="submit" value="Reset password">
+                </p>
+            </form>
+
+            <p class="form-bottom-message"><a href="#0">Back to log-in</a></p>
+        </div>
+        <a href="#0" class="close-form">Close</a>
     </div>
-
-    <div id="signup">
-      <form class="form">
-        <p class="fieldset">
-          <label class="image-replace username" for="signup-username">Username</label>
-          <input class="full-width has-padding has-border" id="signup-username" type="text" placeholder="Username">
-          <span class="error-message">Your username can only contain numeric and alphabetic symbols!</span>
-        </p>
-
-<!--        <p class="fieldset">-->
-<!--          <label class="image-replace email" for="signup-email">E-mail</label>-->
-<!--          <input class="full-width has-padding has-border" id="signup-email" type="email" placeholder="E-mail">-->
-<!--          <span class="error-message">Enter a valid email address!</span>-->
-<!--        </p>-->
-
-        <p class="fieldset">
-          <label class="image-replace password" for="signup-password">Password</label>
-          <input class="full-width has-padding has-border" id="signup-password" type="password"  placeholder="Password">
-          <a class="hide-password">Show</a>
-          <span class="error-message">Your password has to be at least 6 characters long!</span>
-        </p>
-
-<!--        <p class="fieldset">-->
-<!--          <input type="checkbox" id="accept-terms">-->
-<!--          <label for="accept-terms">I agree to the <a class="accept-terms" href="#0">Terms</a></label>-->
-<!--        </p>-->
-
-        <p class="fieldset">
-          <input class="full-width has-padding" type="submit" value="Create account" id = "signUpBtn">
-        </p>
-      </form>
-
-      <!-- <a href="#0" class="cd-close-form">Close</a> -->
-    </div>
-
-    <div id="reset-password">
-      <p class="form-message">Lost your password? Please enter your email address.</br> You will receive a link to create a new password.</p>
-
-      <form class="form">
-        <p class="fieldset">
-          <label class="image-replace email" for="reset-email">E-mail</label>
-          <input class="full-width has-padding has-border" id="reset-email" type="email" placeholder="E-mail">
-          <span class="error-message">An account with this email does not exist!</span>
-        </p>
-
-        <p class="fieldset">
-          <input class="full-width has-padding" type="submit" value="Reset password">
-        </p>
-      </form>
-
-      <p class="form-bottom-message"><a href="#0">Back to log-in</a></p>
-    </div>
-    <a href="#0" class="close-form">Close</a>
-  </div>
 </div>
 </body>
