@@ -6,12 +6,12 @@ const pages = [{
     template: './login/index.html',
     filename: 'index.html',
     chunks: ['main']
-}
-    // {
-    //     template: './chat/chat.html',
-    //     filename: 'chat.html',
-    //     chunks: ['chat']
-    // },
+},
+    {
+        template: './game/game.html',
+        filename: 'game.html',
+        chunks: ['main']
+    }
     // {
     //     template: './signup/signUp.html',
     //     filename: 'signUp.html',
@@ -23,7 +23,7 @@ module.exports = {
     mode: 'development',
     entry: {
         main: './login/main.js',
-        // chat: './chat/script.js',
+        game: './game/main.js',
         // registration: './signup/script.js'
     },
     output: {

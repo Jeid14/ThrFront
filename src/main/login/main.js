@@ -6,7 +6,12 @@ var errPass = document.getElementById('errPass');
 var signUpLogin = document.getElementById('signup-username');
 var signUpPassword = document.getElementById('signup-password');
 
+var signInLogin = document.getElementById('signin-email');
+var signInPassword = document.getElementById('signin-password');
+var loginBtn = document.getElementById('loginBtn');
+
 signUpBtn.addEventListener('click', sendDataForRegistration);
+loginBtn.addEventListener('click', sendDataForAuthorization);
 
 function sendDataForRegistration() {
     var data = {
@@ -23,6 +28,29 @@ function sendDataForRegistration() {
             signUpLogin.value = '';
             signUpPassword.value = '';
             document.getElementById('sign_in').click()
+        } else if (xhr.status === 400) {
+
+        }
+    }
+
+}
+
+function sendDataForAuthorization() {
+    var data = {
+        login: signInLogin.value.trim(),
+        password: signInPassword.value,
+    };
+    var json = JSON.stringify(data);
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', 'http://localhost:8080/authorization');
+    xhr.setRequestHeader("Content-Type", "application/json")
+    xhr.send(json)
+    xhr.onreadystatechange = () => {
+        if (xhr.status === 200) {
+            signUpLogin.value = '';
+            signUpPassword.value = '';
+            document.location.href = "http://localhost:8080/game.html"
+
         } else if (xhr.status === 400) {
 
         }
