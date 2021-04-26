@@ -1,17 +1,24 @@
 import './style.css'
 
-var signEmail = document.getElementById('signin-email');
+var loginBtn = document.getElementById('loginBtn');
+var signLogin = document.getElementById('signin-login');
+var signPass = document.getElementById('signin-password');
+
 var signUpBtn = document.getElementById('signUpBtn');
-var errPass = document.getElementById('errPass');
 var signUpLogin = document.getElementById('signup-username');
 var signUpPassword = document.getElementById('signup-password');
 
-var signInLogin = document.getElementById('signin-email');
-var signInPassword = document.getElementById('signin-password');
-var loginBtn = document.getElementById('loginBtn');
+var errSpanLogin = document.getElementById('errLogin');
+var errSpanPassword = document.getElementById('errPass');
+var errSpanLoginReg = document.getElementById('errLoginRegistration');
+var errSpanPasswordReg = document.getElementById('errPasswordRegistration');
 
-signUpBtn.addEventListener('click', sendDataForRegistration);
-loginBtn.addEventListener('click', sendDataForAuthorization);
+signUpBtn.addEventListener('click', isValidRegistration);
+loginBtn.addEventListener('click', isValidLogin);
+signUpLogin.addEventListener('click', hideSpanText);
+signUpPassword.addEventListener('click', hideSpanText);
+signLogin.addEventListener('click', hideSpanText);
+signPass.addEventListener('click', hideSpanText);
 
 function sendDataForRegistration() {
     var data = {
@@ -22,40 +29,106 @@ function sendDataForRegistration() {
     var xhr = new XMLHttpRequest();
     xhr.open('POST', 'http://localhost:8080/registration');
     xhr.setRequestHeader("Content-Type", "application/json")
+    hideSpanText()
     xhr.send(json)
-    xhr.onreadystatechange = () => {
+    xhr.onload = () => {
         if (xhr.status === 200) {
             signUpLogin.value = '';
             signUpPassword.value = '';
             document.getElementById('sign_in').click()
-        } else if (xhr.status === 400) {
 
+        } else if (xhr.status === 401) {
+            if (xhr.responseText === "User exist") {
+                errSpanLoginReg.innerText = xhr.responseText;
+                errSpanLoginReg.style.opacity = '1';
+            } else {
+                errSpanPasswordReg.innerText = xhr.responseText;
+                errSpanPasswordReg.style.opacity = '1';
+            }
         }
     }
 
 }
 
-function sendDataForAuthorization() {
+function isValidRegistration() {
+    if (isLoginValidRegistration() && isPassValidRegistration()) {
+        console.log(isLoginValid() + " && " + isPassValid())
+        sendDataForRegistration()
+    } else {
+        document.getElementById('inactive').click()
+    }
+
+}
+
+function isPassValidRegistration() {
+    return signUpLogin.validity.valid;
+
+}
+
+function isLoginValidRegistration() {
+    return signUpPassword.validity.valid;
+
+}
+
+function isValidLogin() {
+    if (isLoginValid() && isPassValid()) {
+        console.log(isLoginValid() + " && " + isPassValid())
+        sendDataForAuth()
+    } else {
+        document.getElementById('inactiveLogin').click()
+    }
+
+}
+
+function isPassValid() {
+    return signLogin.validity.valid;
+
+}
+
+function isLoginValid() {
+    return signPass.validity.valid;
+
+}
+
+function hideSpanText() {
+    errSpanPassword.style.opacity = '0';
+    errSpanLogin.style.opacity = '0';
+    errSpanPasswordReg.style.opacity = '0';
+    errSpanLoginReg.style.opacity = '0';
+}
+
+function sendDataForAuth() {
+
     var data = {
-        login: signInLogin.value.trim(),
-        password: signInPassword.value,
+        login: signLogin.value.trim(),
+        password: signPass.value,
     };
     var json = JSON.stringify(data);
     var xhr = new XMLHttpRequest();
     xhr.open('POST', 'http://localhost:8080/authorization');
     xhr.setRequestHeader("Content-Type", "application/json")
     xhr.send(json)
-    xhr.onreadystatechange = () => {
+
+    hideSpanText()
+    xhr.onload = () => {
         if (xhr.status === 200) {
-            signUpLogin.value = '';
-            signUpPassword.value = '';
-            document.location.href = "http://localhost:8080/game.html"
+            var resp = JSON.parse(xhr.response);
+            document.cookie = "token=Bearer_" + resp.token;
+            document.location.href = 'http://localhost:4200/game.html';
 
         } else if (xhr.status === 400) {
 
+        } else if (xhr.status === 401) {
+            if (xhr.responseText === "User not found") {
+                errSpanLogin.innerText = xhr.responseText;
+                errSpanLogin.style.opacity = '1';
+            } else {
+                errSpanPassword.innerText = xhr.responseText;
+                errSpanPassword.style.opacity = '1';
+            }
+
         }
     }
-
 }
 
 jQuery(document).ready(function ($) {

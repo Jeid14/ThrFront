@@ -10,7 +10,7 @@ const pages = [{
     {
         template: './game/game.html',
         filename: 'game.html',
-        chunks: ['main']
+        chunks: ['script']
     }
     // {
     //     template: './signup/signUp.html',
@@ -23,7 +23,7 @@ module.exports = {
     mode: 'development',
     entry: {
         main: './login/main.js',
-        game: './game/main.js',
+        script: './game/script.js',
         // registration: './signup/script.js'
     },
     output: {
